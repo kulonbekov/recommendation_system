@@ -44,21 +44,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        return null;
+        List<User> result = userRep.findAll();
+        return result;
     }
 
     @Override
     public User findByUsername(String username) {
-        return null;
+        User result = userRep.findByUsername(username);
+        return result;
     }
 
     @Override
     public User findById(Long id) {
-        return null;
+        User result = userRep.findById(id).orElseThrow(() -> new RuntimeException("User is not found"));
+        return result;
     }
 
     @Override
     public void delete(Long id) {
-
+        userRep.deleteById(id);
     }
 }
