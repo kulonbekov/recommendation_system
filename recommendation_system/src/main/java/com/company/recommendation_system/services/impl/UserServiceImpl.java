@@ -7,6 +7,7 @@ import com.company.recommendation_system.models.entities.User;
 import com.company.recommendation_system.models.enums.Status;
 import com.company.recommendation_system.repository.RoleRep;
 import com.company.recommendation_system.repository.UserRep;
+import com.company.recommendation_system.security.emailValidator.EmailValidator;
 import com.company.recommendation_system.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final UserRep userRep;
     private final RoleRep roleRep;
     private final PasswordEncoder passwordEncoder;
+
     UserMapper userMapper = UserMapper.INSTANCE;
     @Override
     public UserDto register(UserDto userDto) {
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private User toEntity(UserDto userDto){
+
         Role roleUser = roleRep.findByName("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);

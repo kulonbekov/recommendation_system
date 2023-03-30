@@ -4,13 +4,18 @@ import com.company.recommendation_system.models.dtos.UserDto;
 import com.company.recommendation_system.models.dtos.securityDto.AuthenticationRequestDto;
 import com.company.recommendation_system.models.dtos.securityDto.AuthenticationResponseDto;
 import com.company.recommendation_system.models.entities.User;
+import com.company.recommendation_system.security.emailValidator.EmailException;
+import com.company.recommendation_system.security.emailValidator.EmailValidator;
 import com.company.recommendation_system.security.jwt.JwtTokenProvider;
 import com.company.recommendation_system.services.UserService;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -18,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.SQLException;
 
 @Api(tags = "1. Авторизация/Регистрация")
 @RestController
@@ -28,6 +35,7 @@ public class AuthenticationRestControllerV1 {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+    private final EmailValidator emailValidator;
 
     @ApiOperation("Авторизация")
     @PostMapping("/login")
@@ -53,17 +61,20 @@ public class AuthenticationRestControllerV1 {
 
     @ApiOperation("Регистрация")
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody UserDto userDto){
+    public ResponseEntity register(@RequestBody UserDto userDto) throws EmailException {
         try{
-            userDto = userService.register(userDto);
-
-            String result = "Registration completed successfully " +
-                    "\n username: " + userDto.getUsername() +
-                    "\n email: " + userDto.getEmail();
-
-            return ResponseEntity.ok(result);
-        }catch (Exception e){
-            throw new RuntimeException("Invalid save User: " + userDto.getUsername());
+            if(!emailValidator.validate(userDto.getEmail())){
+                throw new EmailException("The email address '" + userDto.getEmail() + "' is invalid");
+            }
+            return ResponseEntity.ok(toString(userService.register(userDto)));
+        }catch (RuntimeException e){
+            throw new RuntimeException("Invalid save User: " + userDto.getUsername()+ " ");
         }
+    }
+
+    private String toString(UserDto userDto){
+        return "Registration completed successfully " +
+                "\n username: " + userDto.getUsername() +
+                "\n email: " + userDto.getEmail();
     }
 }
