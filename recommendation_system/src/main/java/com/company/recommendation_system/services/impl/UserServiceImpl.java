@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -24,22 +25,8 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper = UserMapper.INSTANCE;
     @Override
     public UserDto register(UserDto userDto) {
-        Role roleUser = roleRep.findByName("ROLE_USER");
-        List<Role> userRoles = new ArrayList<>();
-        userRoles.add(roleUser);
 
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setGender(userDto.getGender());
-        user.setAge(userDto.getAge());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRoles(userRoles);
-        user.setStatus(Status.ACTIVE);
-
-        user = userRep.save(user);
-
-        return userMapper.toDto(user);
+        return userMapper.toDto(userRep.save(toEntity(userDto)));
     }
 
     @Override
@@ -63,5 +50,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userRep.deleteById(id);
+    }
+
+    private User toEntity(UserDto userDto){
+        Role roleUser = roleRep.findByName("ROLE_USER");
+        List<Role> userRoles = new ArrayList<>();
+        userRoles.add(roleUser);
+
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setGender(userDto.getGender());
+        user.setAge(userDto.getAge());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRoles(userRoles);
+        user.setStatus(Status.ACTIVE);
+
+        return user;
     }
 }
