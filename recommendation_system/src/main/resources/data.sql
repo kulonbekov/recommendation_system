@@ -31,3 +31,28 @@ insert into tb_tag(id,created,status,updated,name)VALUES (22,'2023-03-29 02:28:3
 insert into tb_tag(id,created,status,updated,name)VALUES (23,'2023-03-29 02:28:38.593','ACTIVE', '2023-03-29 02:28:38.593','Кемпинг');
 insert into tb_tag(id,created,status,updated,name)VALUES (24,'2023-03-29 02:28:38.593','ACTIVE', '2023-03-29 02:28:38.593','Красота');
 insert into tb_tag(id,created,status,updated,name)VALUES (25,'2023-03-29 02:28:38.593','ACTIVE', '2023-03-29 02:28:38.593','Живопись');
+
+insert into tb_picture(id,created,status,updated,author,image,name,number_of_views)
+VALUES (1,'2023-03-31 00:49:28.491','ACTIVE','2023-03-31 00:49:28.491','Christiaana','C:\Users\Comp\IdeaProjects\Bootcamp_12\recommendation_system\..\recommendation_system\recommendation_system\src\main\resources\images\Panamera-car1.jpg','Panamera',30);
+
+insert into tb_picture(id,created,status,updated,author,image,name,number_of_views)
+VALUES (2,'2023-03-31 00:49:28.491','ACTIVE','2023-03-31 00:49:28.491','Christiaana','C:\Users\Comp\IdeaProjects\Bootcamp_12\recommendation_system\..\recommendation_system\recommendation_system\src\main\resources\images\Panamera-car2.jpg','Panamera',31);
+
+insert into tb_picture(id,created,status,updated,author,image,name,number_of_views)
+VALUES (3,'2023-03-31 00:49:28.491','ACTIVE','2023-03-31 00:49:28.491','Christiaana','C:\Users\Comp\IdeaProjects\Bootcamp_12\recommendation_system\..\recommendation_system\recommendation_system\src\main\resources\images\Lamborgini-car1.jpg','Lamborgini',30);
+
+insert into tb_picture(id,created,status,updated,author,image,name,number_of_views)
+VALUES (4,'2023-03-31 00:49:28.491','ACTIVE','2023-03-31 00:49:28.491','Christiaana','C:\Users\Comp\IdeaProjects\Bootcamp_12\recommendation_system\..\recommendation_system\recommendation_system\src\main\resources\images\Lamborgini-car2.jpg','Lamborgini',31);
+
+insert into tb_picture_tag(picture_id,tag_id)VALUES (1,3);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (1,13);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (1,8);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (2,3);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (2,13);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (2,8);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (3,3);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (3,13);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (3,8);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (4,3);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (4,13);
+insert into tb_picture_tag(picture_id,tag_id)VALUES (4,8);

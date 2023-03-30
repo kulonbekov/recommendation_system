@@ -4,10 +4,12 @@ import com.company.recommendation_system.mappers.PictureMapper;
 import com.company.recommendation_system.models.dtos.PictureDto;
 import com.company.recommendation_system.models.entities.Picture;
 import com.company.recommendation_system.models.entities.Tag;
+import com.company.recommendation_system.models.enums.Status;
 import com.company.recommendation_system.repository.PictureRep;
 import com.company.recommendation_system.repository.TagRep;
 import com.company.recommendation_system.services.PictureService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +27,10 @@ public class PictureServiceImpl implements PictureService {
     PictureMapper pictureMapper = PictureMapper.INSTANCE;
     @Override
     public PictureDto save(PictureDto pictureDto, MultipartFile file) {
-        File myFile = new File("C:\\Users\\Comp\\IdeaProjects\\Bootcamp_12\\recommendation_system\\recommendation_system\\src\\main\\resources\\images\\" + file.getOriginalFilename());
+
+
+        File myFile = new File("..\\recommendation_system\\recommendation_system\\src\\main\\resources\\images\\"+file.getOriginalFilename());
+
         try{
             myFile.createNewFile();
             FileOutputStream output = new FileOutputStream(myFile);
@@ -44,6 +49,23 @@ public class PictureServiceImpl implements PictureService {
         pictureDto.setTags(tags);
 
         pictureDto.setImage(myFile.getAbsolutePath());
+        return pictureMapper.toDto(pictureRep.save(pictureMapper.toEntity(pictureDto)));
+    }
+
+    @Override
+    public List<PictureDto> findAll() {
+        return pictureMapper.toDtos(pictureRep.findAll());
+    }
+
+    @Override
+    public PictureDto findById(Long id) {
+        return pictureMapper.toDto(pictureRep.findById(id).orElseThrow(()->new RuntimeException("Picture not found")));
+    }
+
+    @Override
+    public PictureDto delete(Long id) {
+        PictureDto pictureDto = findById(id);
+        pictureDto.setStatus(Status.DELETED);
         return pictureMapper.toDto(pictureRep.save(pictureMapper.toEntity(pictureDto)));
     }
 }
