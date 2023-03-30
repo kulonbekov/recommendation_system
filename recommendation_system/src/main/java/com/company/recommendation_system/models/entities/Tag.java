@@ -1,11 +1,11 @@
 package com.company.recommendation_system.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,4 +17,7 @@ import javax.persistence.Table;
 public class Tag extends BaseEntity{
     @Column(name = "name")
     String name;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "tags" , fetch = FetchType.LAZY)
+    List<Picture> pictures;
 }
