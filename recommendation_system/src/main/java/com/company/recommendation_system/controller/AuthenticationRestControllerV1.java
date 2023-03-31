@@ -1,6 +1,7 @@
 package com.company.recommendation_system.controller;
 
 import com.company.recommendation_system.models.dtos.UserDto;
+import com.company.recommendation_system.models.dtos.resetPassword.ChangePasswordDto;
 import com.company.recommendation_system.models.dtos.resetPassword.ResetPasswordDto;
 import com.company.recommendation_system.models.dtos.securityDto.AuthenticationRequestDto;
 import com.company.recommendation_system.models.dtos.securityDto.AuthenticationResponseDto;
@@ -85,9 +86,14 @@ public class AuthenticationRestControllerV1 {
     @PostMapping("/reset-password")
     ResponseEntity<?> resetPassword(@RequestBody ResetPasswordDto resetPasswordDto){
         try{
-            User user = userRep.findByEmail(resetPasswordDto.getEmail());
+            User user = userService.findByEmail(resetPasswordDto.getEmail());
+
+            if(user == null) {
+                throw new NullPointerException("The email address '" + resetPasswordDto.getEmail() + "' is invalid");
+            }
+
             String token = jwtTokenProvider.createResetToken(user.getUsername(),user.getRoles());
-            System.out.println(token);
+
             resetPasswordDto.setUsername(user.getUsername());
             resetPasswordDto.setResetToken(token);
 
@@ -98,6 +104,27 @@ public class AuthenticationRestControllerV1 {
             System.out.println(e.getMessage());
             return new ResponseEntity<>("Error sending email", HttpStatus.CONFLICT);
         }
+    }
+    @ApiOperation("Создать новый пароль пользователя")
+    @PostMapping("/change-password")
+    ResponseEntity<?> resetPassword(@RequestBody ChangePasswordDto changeDto) throws PasswordException{
+
+        if(!jwtTokenProvider.validateToken(changeDto.getToken())){
+            throw new RuntimeException("Token has expired");
+        }
+        if(!changeDto.getPassword().equals(changeDto.getPasswordConfirmation())){
+            throw new RuntimeException("passwords do not match");
+        }
+        if(!passwordValidator.validate(changeDto.getPassword())){
+            throw new PasswordException("The password '" + changeDto.getPassword() + "' is invalid");
+        }
+        try{
+            userService.changePassword(changeDto);
+            return ResponseEntity.ok("Password changed successfully....");
+        }catch (Exception e){
+            return new ResponseEntity<>("Invalid change password" , HttpStatus.CONFLICT);
+        }
+
     }
 
     private String toString(UserDto userDto){

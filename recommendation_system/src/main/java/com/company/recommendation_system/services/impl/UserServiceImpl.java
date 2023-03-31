@@ -4,8 +4,8 @@ import com.company.recommendation_system.mappers.ResetPasswordMapper;
 import com.company.recommendation_system.mappers.UserMapper;
 import com.company.recommendation_system.mappers.customMapper.EmailMapper;
 import com.company.recommendation_system.models.dtos.UserDto;
+import com.company.recommendation_system.models.dtos.resetPassword.ChangePasswordDto;
 import com.company.recommendation_system.models.dtos.resetPassword.ResetPasswordDto;
-import com.company.recommendation_system.models.entities.ResetPassword;
 import com.company.recommendation_system.models.entities.Role;
 import com.company.recommendation_system.models.entities.User;
 import com.company.recommendation_system.models.enums.Status;
@@ -54,6 +54,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        User result = userRep.findByEmail(email);
+        return result;
+    }
+
+    @Override
     public User findById(Long id) {
         User result = userRep.findById(id).orElseThrow(() -> new RuntimeException("User is not found"));
         return result;
@@ -74,9 +80,19 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void changePassword(ChangePasswordDto changePasswordDto) {
+        User user = userRep.findByEmail(changePasswordDto.getEmail());
+        if(user == null){
+            throw new NullPointerException("The email address '" + changePasswordDto.getEmail() + "' is invalid");
+        }
+        user.setPassword(passwordEncoder.encode(changePasswordDto.getPassword()));
+        userRep.save(user);
+    }
+
     private void settingEmail(ResetPasswordDto dto) {
         String textSend = emailMapper.toString(dto);
-        String subject = "Reset password username: " + dto.getUsername() + " " + new Date();
+        String subject = "Reset password username: " + dto.getUsername() + " dataTime: " + new Date();
         String email = dto.getEmail();
 
         try{
