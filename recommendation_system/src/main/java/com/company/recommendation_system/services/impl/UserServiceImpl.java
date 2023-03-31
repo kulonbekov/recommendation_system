@@ -83,9 +83,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changePassword(ChangePasswordDto changePasswordDto) {
         User user = userRep.findByEmail(changePasswordDto.getEmail());
-        if(user == null){
-            throw new NullPointerException("The email address '" + changePasswordDto.getEmail() + "' is invalid");
-        }
         user.setPassword(passwordEncoder.encode(changePasswordDto.getPassword()));
         userRep.save(user);
     }

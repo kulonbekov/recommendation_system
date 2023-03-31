@@ -118,6 +118,9 @@ public class AuthenticationRestControllerV1 {
         if(!passwordValidator.validate(changeDto.getPassword())){
             throw new PasswordException("The password '" + changeDto.getPassword() + "' is invalid");
         }
+        if(userService.findByEmail(changeDto.getEmail()) == null) {
+            throw new NullPointerException("The email address '" + changeDto.getEmail() + "' is invalid");
+        }
         try{
             userService.changePassword(changeDto);
             return ResponseEntity.ok("Password changed successfully....");
