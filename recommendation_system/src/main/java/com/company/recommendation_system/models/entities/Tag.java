@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -15,7 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "tb_tag")
 public class Tag extends BaseEntity{
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
+    @NotNull
     String name;
     @JsonIgnore
     @ManyToMany(mappedBy = "tags" , fetch = FetchType.LAZY)

@@ -20,7 +20,7 @@ public class Picture extends BaseEntity{
     String name;
     @Column(name = "author")
     String author;
-    @Column(name = "image")
+    @Column(name = "image" , unique = true)
     String image;
     @Column(name = "number_of_views")
     int numberOfViews;

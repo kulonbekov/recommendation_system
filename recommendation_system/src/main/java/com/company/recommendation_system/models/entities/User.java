@@ -2,6 +2,7 @@ package com.company.recommendation_system.models.entities;
 
 import com.company.recommendation_system.models.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -17,16 +18,21 @@ import java.util.List;
 @Table(name = "tb_user")
 public class User extends BaseEntity{
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
+    @NotNull()
     String username;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
+    @NotNull()
     String email;
     @Column(name = "password")
+    @NotNull()
     String password;
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
+    @NotNull()
     Gender gender;
     @Column(name = "age")
+    @NotNull()
     int age;
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)

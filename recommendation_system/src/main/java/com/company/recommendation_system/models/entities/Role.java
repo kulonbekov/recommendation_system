@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -16,7 +17,8 @@ import java.util.List;
 @Table(name = "tb_role")
 public class Role extends BaseEntity{
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
+    @NotNull
     String name;
     @JsonIgnore
     @ManyToMany(mappedBy = "roles" , fetch = FetchType.LAZY)
