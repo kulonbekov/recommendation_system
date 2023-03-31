@@ -1,6 +1,8 @@
 package com.company.recommendation_system.services;
 
 import com.company.recommendation_system.models.dtos.UserDto;
+import com.company.recommendation_system.models.dtos.resetPassword.ResetPasswordDto;
+import com.company.recommendation_system.models.entities.ResetPassword;
 import com.company.recommendation_system.models.entities.User;
 
 import java.util.List;
@@ -12,4 +14,6 @@ public interface UserService {
     User findByUsername(String username);
     User findById(Long id);
     void delete(Long id);
+    void resetPassword (ResetPasswordDto resetPasswordDto);
+    void send(String to, String subject, String text);
 }

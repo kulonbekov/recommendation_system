@@ -1,8 +1,10 @@
 package com.company.recommendation_system.controller;
 
 import com.company.recommendation_system.models.dtos.PictureDto;
+import com.company.recommendation_system.models.dtos.resetPassword.ResetPasswordDto;
 import com.company.recommendation_system.repository.PictureRep;
 import com.company.recommendation_system.services.PictureService;
+import com.company.recommendation_system.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 public class UserRestControllerV1 {
 
     private final PictureService pictureService;
+    private final UserService userService;
 
     @ApiOperation("Вывод всех пинов")
     @GetMapping("/find/all")
@@ -35,4 +38,5 @@ public class UserRestControllerV1 {
     ResponseEntity<?> delete(@RequestParam Long id) {
         return new ResponseEntity<>(pictureService.delete(id), HttpStatus.OK);
     }
+
 }

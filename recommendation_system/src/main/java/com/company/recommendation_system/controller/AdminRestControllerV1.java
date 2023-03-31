@@ -29,7 +29,7 @@ public class AdminRestControllerV1 {
             return ResponseEntity.ok(pictureDto);
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return new ResponseEntity<>("error saving file", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Error saving file", HttpStatus.NO_CONTENT);
         }
     }
 }

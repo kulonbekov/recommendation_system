@@ -1,8 +1,10 @@
 package com.company.recommendation_system.controller;
 
 import com.company.recommendation_system.models.dtos.UserDto;
+import com.company.recommendation_system.models.dtos.resetPassword.ResetPasswordDto;
 import com.company.recommendation_system.models.dtos.securityDto.AuthenticationRequestDto;
 import com.company.recommendation_system.models.dtos.securityDto.AuthenticationResponseDto;
+import com.company.recommendation_system.models.entities.ResetPassword;
 import com.company.recommendation_system.models.entities.User;
 import com.company.recommendation_system.repository.UserRep;
 import com.company.recommendation_system.security.emailValidator.EmailException;
@@ -23,10 +25,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.sql.SQLOutput;
@@ -42,6 +41,7 @@ public class AuthenticationRestControllerV1 {
     private final UserService userService;
     private final EmailValidator emailValidator;
     private final PasswordValidator passwordValidator;
+    private final UserRep userRep;
 
     @ApiOperation("Авторизация")
     @PostMapping("/login")
@@ -78,6 +78,25 @@ public class AuthenticationRestControllerV1 {
             return ResponseEntity.ok(toString(userService.register(userDto)));
         }catch (RuntimeException e){
             throw new RuntimeException("Invalid save User: " + userDto.getUsername()+ " ");
+        }
+    }
+
+    @ApiOperation("Сброс пароля пользователя")
+    @PostMapping("/reset-password")
+    ResponseEntity<?> resetPassword(@RequestBody ResetPasswordDto resetPasswordDto){
+        try{
+            User user = userRep.findByEmail(resetPasswordDto.getEmail());
+            String token = jwtTokenProvider.createResetToken(user.getUsername(),user.getRoles());
+            System.out.println(token);
+            resetPasswordDto.setUsername(user.getUsername());
+            resetPasswordDto.setResetToken(token);
+
+            userService.resetPassword(resetPasswordDto);
+
+            return ResponseEntity.ok("Message sent successfully....");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>("Error sending email", HttpStatus.CONFLICT);
         }
     }
 
