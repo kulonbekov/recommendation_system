@@ -7,12 +7,20 @@ import java.util.List;
 
 public interface MusicService {
 
+    //ROLE_ADMIN
     MusicDto save(MusicDto musicDto, MultipartFile myImage, MultipartFile mySong);
 
-    List<MusicDto> findAll();
+    //ROLE_USER
+    //Filters
+    //FindAllByAuthor
+    List<MusicDto> findAllByAuthor(String author);
+
+
+    //FindByName
     MusicDto findByName(String name);
 
-    MusicDto findById(Long id);
 
+
+    //Delete
     MusicDto delete(Long id);
 }

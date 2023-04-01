@@ -23,6 +23,8 @@ public class MusicServiceImpl implements MusicService {
     private final MusicRep musicRep;
     private final GenreRep genreRep;
     MusicMapper musicMapper = MusicMapper.INSTANCE;
+
+    //ROLE_ADMIN
     @Override
     public MusicDto save(MusicDto musicDto, MultipartFile myImage, MultipartFile mySong) {
         File myImageFile = new File("..\\recommendation_system\\recommendation_system\\src\\main\\resources\\musics\\images\\"+myImage.getOriginalFilename());
@@ -53,24 +55,25 @@ public class MusicServiceImpl implements MusicService {
         return musicMapper.toDto(musicRep.save(musicMapper.toEntity(musicDto)));
     }
 
+    //ROLE_USER
+    //Filters
+    //FindAllByAuthor
     @Override
-    public List<MusicDto> findAll() {
-        return musicMapper.toDtos(musicRep.findAll());
+    public List<MusicDto> findAllByAuthor(String author) {
+        return musicMapper.toDtos(musicRep.findAllByAuthor(author));
     }
 
+    //FindByName
     @Override
     public MusicDto findByName(String name) {
         return musicMapper.toDto(musicRep.findByName(name));
     }
 
-    @Override
-    public MusicDto findById(Long id) {
-        return musicMapper.toDto(musicRep.findById(id).orElseThrow(()->new RuntimeException("Music not found")));
-    }
 
+    //Delete
     @Override
     public MusicDto delete(Long id) {
-        MusicDto musicDto = findById(id);
+        MusicDto musicDto = musicMapper.toDto(musicRep.findById(id).orElseThrow(() -> new RuntimeException("Music not found")));
         musicDto.setStatus(Status.DELETED);
         return musicMapper.toDto(musicRep.save(musicMapper.toEntity(musicDto)));
     }

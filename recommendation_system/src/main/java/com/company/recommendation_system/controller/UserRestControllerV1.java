@@ -19,24 +19,10 @@ import java.util.List;
 public class UserRestControllerV1 {
     private final MusicService musicService;
 
-    @ApiOperation("Вывод всех треков")
-    @GetMapping("/find/all")
-    ResponseEntity<List<MusicDto>> findAll() {
-        return ResponseEntity.ok(musicService.findAll());
-    }
-    @ApiOperation("Поиск трека по Id")
-    @GetMapping("/find/by/id")
-    ResponseEntity<?> findById(@RequestParam Long id) {
-        try{
-            MusicDto musicDto =musicService.findById(id);
-            if(musicDto == null){
-                throw new NullPointerException();
-            }
-            return new ResponseEntity<>(musicDto, HttpStatus.FOUND);
-        }catch (NullPointerException e){
-            return new ResponseEntity<>("Music not found", HttpStatus.NOT_FOUND);
-        }
-
+    @ApiOperation("Фильтрация по автору")
+    @GetMapping("/find/all/by/author")
+    ResponseEntity<List<MusicDto>> findAllByAuthor(@RequestParam String author) {
+        return ResponseEntity.ok(musicService.findAllByAuthor(author));
     }
     @ApiOperation("Поиск трека по названию")
     @GetMapping("/find/by/name")
