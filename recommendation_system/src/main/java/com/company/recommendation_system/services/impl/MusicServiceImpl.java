@@ -62,13 +62,24 @@ public class MusicServiceImpl implements MusicService {
     public List<MusicDto> findAllByAuthor(String author) {
         return musicMapper.toDtos(musicRep.findAllByAuthor(author));
     }
+    //Filters
+    //FindAllByGenre
+    @Override
+    public List<MusicDto> findAllByGenre(String genre) {
+        return musicMapper.toDtos(musicRep.findAllByGenre(genre));
+    }
+    //Filters
+    //FindAllByName
+    @Override
+    public List<MusicDto> findAllByName(String name) {
+        return musicMapper.toDtos(musicRep.findAllByName(name));
+    }
 
     //FindByName
     @Override
     public MusicDto findByName(String name) {
         return musicMapper.toDto(musicRep.findByName(name));
     }
-
 
     //Delete
     @Override

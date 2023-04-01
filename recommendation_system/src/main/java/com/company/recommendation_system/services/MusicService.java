@@ -15,6 +15,14 @@ public interface MusicService {
     //FindAllByAuthor
     List<MusicDto> findAllByAuthor(String author);
 
+    //Filters
+    //FindAllByGenre
+    List<MusicDto> findAllByGenre(String genre);
+
+    //Filters
+    //FindAllByName
+    List<MusicDto> findAllByName(String name);
+
 
     //FindByName
     MusicDto findByName(String name);

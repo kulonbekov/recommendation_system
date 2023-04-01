@@ -24,6 +24,16 @@ public class UserRestControllerV1 {
     ResponseEntity<List<MusicDto>> findAllByAuthor(@RequestParam String author) {
         return ResponseEntity.ok(musicService.findAllByAuthor(author));
     }
+    @ApiOperation("Фильтрация по жанру")
+    @GetMapping("/find/all/by/genre")
+    ResponseEntity<List<MusicDto>> findAllByGenre(@RequestParam String genre) {
+        return ResponseEntity.ok(musicService.findAllByGenre(genre));
+    }
+    @ApiOperation("Фильтрация по названию")
+    @GetMapping("/find/all/by/name")
+    ResponseEntity<List<MusicDto>> findAllByName(@RequestParam String name) {
+        return ResponseEntity.ok(musicService.findAllByName(name));
+    }
     @ApiOperation("Поиск трека по названию")
     @GetMapping("/find/by/name")
     ResponseEntity<?> findByName(@RequestParam String name) {
@@ -36,7 +46,6 @@ public class UserRestControllerV1 {
         }catch (NullPointerException e ){
             return new ResponseEntity<>("Music not found", HttpStatus.NOT_FOUND);
         }
-
     }
     @ApiOperation("Удаления трека по Id")
     @DeleteMapping("/delete")

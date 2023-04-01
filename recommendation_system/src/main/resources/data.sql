@@ -25,7 +25,6 @@ insert into tb_music (id,created,status,updated,album,author,date_of_issue,image
 VALUES (5,'2023-04-01 20:28:22.02','ACTIVE','2023-04-01 20:28:22.02','Айланып учуп кетем', 'FREEMAN 996', 2019, 'C:\Users\Comp\IdeaProjects\Bootcamp_12\recommendation_system\..\recommendation_system\recommendation_system\src\main\resources\musics\images\айланып-учуп-кетем.jpg', 'Айланып учуп кетем', 490, 'C:\Users\Comp\IdeaProjects\Bootcamp_12\recommendation_system\..\recommendation_system\recommendation_system\src\main\resources\musics\songs\freeman-996-ajlanyp-uchup-ketem.mp3');
 
 
-
 insert into tb_music_genre(music_id,genre_id)VALUES (1,1);
 insert into tb_music_genre(music_id,genre_id)VALUES (1,3);
 insert into tb_music_genre(music_id,genre_id)VALUES (2,2);
