@@ -14,12 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "tb_tag")
-public class Tag extends BaseEntity{
+@Table(name = "tb_genre")
+public class Genre extends BaseEntity{
+
     @Column(name = "name", unique = true)
     @NotNull
     String name;
     @JsonIgnore
-    @ManyToMany(mappedBy = "tags" , fetch = FetchType.LAZY)
-    List<Picture> pictures;
+    @ManyToMany(mappedBy = "genres" , fetch = FetchType.LAZY)
+    List<Music> musics;
 }

@@ -1,8 +1,7 @@
 package com.company.recommendation_system.controller;
 
-import com.company.recommendation_system.models.dtos.PictureDto;
-import com.company.recommendation_system.repository.PictureRep;
-import com.company.recommendation_system.services.PictureService;
+import com.company.recommendation_system.models.dtos.MusicDto;
+import com.company.recommendation_system.services.MusicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -11,25 +10,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @Api(tags = "2. Администрация")
 @RestController
 @RequestMapping(value = "/api/v1/admin")
 @RequiredArgsConstructor
 public class AdminRestControllerV1 {
 
-    private final PictureService pictureService;
+    private final MusicService musicService;
 
-    @ApiOperation("Добавления контента")
-    @PostMapping("/picture-save")
-    public ResponseEntity pictureSave(@ModelAttribute PictureDto pictureDto, @RequestPart MultipartFile file){
+
+    @ApiOperation("Добавления треков")
+    @PostMapping("/music-save")
+    public ResponseEntity musicSave(@ModelAttribute MusicDto musicDto, @RequestPart MultipartFile myImage, @RequestPart MultipartFile mySong){
         try{
-            pictureService.save(pictureDto,file);
-            return ResponseEntity.ok(pictureDto);
+            musicService.save(musicDto, myImage, mySong);
+            return ResponseEntity.ok("Content saved successfully....");
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return new ResponseEntity<>("Error saving file", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Error saving content", HttpStatus.NO_CONTENT);
         }
     }
 }

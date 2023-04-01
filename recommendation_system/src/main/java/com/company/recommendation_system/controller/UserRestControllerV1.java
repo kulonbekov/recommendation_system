@@ -1,10 +1,7 @@
 package com.company.recommendation_system.controller;
 
-import com.company.recommendation_system.models.dtos.PictureDto;
-import com.company.recommendation_system.models.dtos.resetPassword.ResetPasswordDto;
-import com.company.recommendation_system.repository.PictureRep;
-import com.company.recommendation_system.services.PictureService;
-import com.company.recommendation_system.services.UserService;
+import com.company.recommendation_system.models.dtos.MusicDto;
+import com.company.recommendation_system.services.MusicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -19,24 +16,22 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/users")
 @RequiredArgsConstructor
 public class UserRestControllerV1 {
+    private final MusicService musicService;
 
-    private final PictureService pictureService;
-    private final UserService userService;
-
-    @ApiOperation("Вывод всех пинов")
+    @ApiOperation("Вывод всех треков")
     @GetMapping("/find/all")
-    ResponseEntity<List<PictureDto>> findAll() {
-        return ResponseEntity.ok(pictureService.findAll());
+    ResponseEntity<List<MusicDto>> findAll() {
+        return ResponseEntity.ok(musicService.findAll());
     }
-    @ApiOperation("Поиск пина по Id")
+    @ApiOperation("Поиск трека по Id")
     @GetMapping("/find/by/id")
     ResponseEntity<?> findById(@RequestParam Long id) {
-        return new ResponseEntity<>(pictureService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(musicService.findById(id), HttpStatus.FOUND);
     }
-    @ApiOperation("Удаления пина по Id")
+    @ApiOperation("Удаления трека по Id")
     @DeleteMapping("/delete")
     ResponseEntity<?> delete(@RequestParam Long id) {
-        return new ResponseEntity<>(pictureService.delete(id), HttpStatus.OK);
+        return new ResponseEntity<>(musicService.delete(id), HttpStatus.OK);
     }
 
 }
