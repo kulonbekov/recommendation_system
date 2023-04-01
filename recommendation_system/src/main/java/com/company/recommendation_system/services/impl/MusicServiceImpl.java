@@ -81,6 +81,18 @@ public class MusicServiceImpl implements MusicService {
         return musicMapper.toDto(musicRep.findByName(name));
     }
 
+    //Recommendation
+    //Popular
+    @Override
+    public List<MusicDto> findAllByPopular() {
+        return musicMapper.toDtos(musicRep.findAllByPopular());
+    }
+
+    @Override
+    public List<MusicDto> findAllByNew() {
+        return musicMapper.toDtos(musicRep.findAllByNew());
+    }
+
     //Delete
     @Override
     public MusicDto delete(Long id) {

@@ -47,6 +47,16 @@ public class UserRestControllerV1 {
             return new ResponseEntity<>("Music not found", HttpStatus.NOT_FOUND);
         }
     }
+    @ApiOperation("Рекомендация (популярное))")
+    @GetMapping("/find/all/by/popular")
+    ResponseEntity<List<MusicDto>> findAllByPopular() {
+        return ResponseEntity.ok(musicService.findAllByPopular());
+    }
+    @ApiOperation("Рекомендация (новинки))")
+    @GetMapping("/find/all/by/new")
+    ResponseEntity<List<MusicDto>> findAllByNew() {
+        return ResponseEntity.ok(musicService.findAllByNew());
+    }
     @ApiOperation("Удаления трека по Id")
     @DeleteMapping("/delete")
     ResponseEntity<?> delete(@RequestParam Long id) {
