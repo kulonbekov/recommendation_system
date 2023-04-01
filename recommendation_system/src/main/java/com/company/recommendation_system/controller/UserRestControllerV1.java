@@ -5,6 +5,7 @@ import com.company.recommendation_system.services.MusicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,30 @@ public class UserRestControllerV1 {
     @ApiOperation("Поиск трека по Id")
     @GetMapping("/find/by/id")
     ResponseEntity<?> findById(@RequestParam Long id) {
-        return new ResponseEntity<>(musicService.findById(id), HttpStatus.FOUND);
+        try{
+            MusicDto musicDto =musicService.findById(id);
+            if(musicDto == null){
+                throw new NullPointerException();
+            }
+            return new ResponseEntity<>(musicDto, HttpStatus.FOUND);
+        }catch (NullPointerException e){
+            return new ResponseEntity<>("Music not found", HttpStatus.NOT_FOUND);
+        }
+
+    }
+    @ApiOperation("Поиск трека по названию")
+    @GetMapping("/find/by/name")
+    ResponseEntity<?> findByName(@RequestParam String name) {
+        try{
+            MusicDto musicDto = musicService.findByName(name);
+            if(musicDto == null){
+                throw new NullPointerException();
+            }
+            return new ResponseEntity<>(musicDto, HttpStatus.FOUND);
+        }catch (NullPointerException e ){
+            return new ResponseEntity<>("Music not found", HttpStatus.NOT_FOUND);
+        }
+
     }
     @ApiOperation("Удаления трека по Id")
     @DeleteMapping("/delete")

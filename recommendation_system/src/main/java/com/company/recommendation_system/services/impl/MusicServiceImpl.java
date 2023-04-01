@@ -59,6 +59,11 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
+    public MusicDto findByName(String name) {
+        return musicMapper.toDto(musicRep.findByName(name));
+    }
+
+    @Override
     public MusicDto findById(Long id) {
         return musicMapper.toDto(musicRep.findById(id).orElseThrow(()->new RuntimeException("Music not found")));
     }

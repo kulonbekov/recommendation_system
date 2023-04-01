@@ -10,6 +10,7 @@ public interface MusicService {
     MusicDto save(MusicDto musicDto, MultipartFile myImage, MultipartFile mySong);
 
     List<MusicDto> findAll();
+    MusicDto findByName(String name);
 
     MusicDto findById(Long id);
 
