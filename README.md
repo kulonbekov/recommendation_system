@@ -7,4 +7,7 @@
 2. СУБД использован PostgreSQL 15.0
 
 ##Технологии
-1. Spring Boot использует систему сборки на основе [Maven](https://maven.apache.org/)
+1. [Spring Boot](https://spring.io/projects/spring-boot)проект использует систему сборки на основе [Maven](https://maven.apache.org/)
+2. Для работы с базами данных используется: для сохраниение Java-обьектов используется Spring Data Jpa, для реализации Hibernate
+3. [Spring Security](https://spring.io/projects/spring-security) для аутентификации и контрола доступа.
+4. Для описание Api и создание документации, в преокте использован [Swagger](https://swagger.io/)
