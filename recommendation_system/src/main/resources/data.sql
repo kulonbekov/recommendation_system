@@ -4,7 +4,7 @@ insert into tb_role (id, created, status, updated, name) VALUES (2, '2023-03-29 
 
 /*Пользователь 'kulonbekov' с ролем (ROLE_ADMIN)*/
 insert into tb_user(id,created,status,updated,age, email, gender, password, username)
-VALUES (1, '2023-03-29 02:28:38.593', 'ACTIVE', '2023-03-29 02:28:38.593', 29, 'kulonbekov@gmail.com','MALE', '$2a$04$TgiPX6SJgrjQ4RQhKNWOnOwJ.ohCgTZ63kxc9ysIcnhFol21wg9Y2', 'kulonbekov');
+VALUES (1, '2023-03-29 02:28:38.593', 'ACTIVE', '2023-03-29 02:28:38.593', 29, 'mirbek@gmail.com','MALE', '$2a$04$RVaphD7dexUaCR9yKmqJtONGavL1Up46/iJKQiASd2PScpLtfg0fG', 'mirbek');
 
 /*Пользователь 'adil' с ролем (ROLE_USER)*/
 insert into tb_user(id,created,status,updated,age, email, gender, password, username)
