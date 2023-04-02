@@ -3,15 +3,15 @@
 и побудить пользователей потреблять больше контента на этой платформе.
 
 ## Запуск
-1. Для запуска вам понадобиться Java 8 и выше.
-2. СУБД использован PostgreSQL 15.0.
+1. Для запуска вам понадобиться [Java 8](https://www.java.com/ru/) и выше.
+2. СУБД использован [PostgreSQL 15.0](https://www.postgresql.org/).
 
 ## Технологии
 1. [Spring Boot](https://spring.io/projects/spring-boot) проект использует систему сборки на основе [Maven](https://maven.apache.org/).
 2. Для работы с базами данных и для сохраниение Java-обьектов используется Spring Data Jpa, для реализации Hibernate.
 3. [Spring Security](https://spring.io/projects/spring-security) для аутентификации и контрола доступа.
-4. Для описание Api и создание документации, в проекте использован [Swagger](https://swagger.io/).
-5. Для тестирование Api - [Postman](https://www.postman.com/).
+4. Для описание API и создание документации, в проекте использован [Swagger](https://swagger.io/).
+5. Для тестирование API - [Postman](https://www.postman.com/).
 
 ## Настройки и описания проекта
 1. Настройки соединение к БД прописаны в файле `src/main/resources/application.proporties` (надо будет создать новую database и прописать username и password
@@ -23,6 +23,7 @@
 
 ## Описание API запросов для контроля доступа 
 1. POST запрос "Аутентификация" `http://localhost:8079/api/v1/auth/login`
+
 - Пользователь с доступом admin (ROLE_ADMIN): 
 - username: mirbek
 - password: AdIl1!2@ (есть валидация пароля)
@@ -31,7 +32,8 @@
 - password: AdIl1!2@
 
 2. Post запрос "Регистрация" `http://localhost:8079/api/v1/auth/register`
-JSON формат.
+JSON формат, в поле `email` (есть обязательная валидация почты) 
+
 - `{
     "username":"ermek",
     "password":"AdIl1!2@",
@@ -49,13 +51,15 @@ JSON формат.
 
 3. Post запрос "Сброс пароля" `http://localhost:8079/api/v1/auth/reset-password`
 - Указывается почта пользователя, JSON формат.
+
 - `{
     "email":"sehami4053@djpich.com"
 }`
 на почту придет jwt-token, он необходим при создание нового пароля.
 
-4.Post запрос "Изменить пароль" `http://localhost:8079/api/v1/auth/change-password`
+4. Post запрос "Изменить пароль" `http://localhost:8079/api/v1/auth/change-password`
 JSON формат.
+
 - `{
     "email":"sehami4053@djpich.com",
     "token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZGlsIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY4MDI5NjEyNCwiZXhwIjoxNjgwMjk5NzI0fQ.Web4FSNHIVGlrmYirtTlJQiBUzdLOm_hx0ysCDMyJBs",
@@ -65,6 +69,7 @@ JSON формат.
 - Заполняем поля почта, токен, и два поля для пароля.
 
 ## Описание API запровос для добавления контента
+
 1. Post запрос "Save" `http://localhost:8079/api/v1/admin/music-save` , контент добавляется с помощью `ModelAttribute` и `MultiParFile`.
 - Необходимо авторизоваться с ролем `ROLE_ADMIN`, полученный токен добавить в `Headers`.
 - Key: `Authorization`
