@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 public class EmailMapperImpl implements EmailMapper {
     @Override
     public String toString(ResetPasswordDto dto) {
-        String sendText = "Username: " + dto.getUsername() +
+        return "Username: " + dto.getUsername() +
                 "\n Token: " + dto.getResetToken();
-        return sendText;
     }
 }

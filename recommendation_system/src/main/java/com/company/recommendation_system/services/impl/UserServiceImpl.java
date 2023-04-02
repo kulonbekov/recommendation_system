@@ -47,26 +47,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        List<User> result = userRep.findAll();
-        return result;
+        return userRep.findAll();
     }
 
     @Override
     public User findByUsername(String username) {
-        User result = userRep.findByUsername(username);
-        return result;
+        return userRep.findByUsername(username);
     }
 
     @Override
     public User findByEmail(String email) {
-        User result = userRep.findByEmail(email);
-        return result;
+        return userRep.findByEmail(email);
     }
 
     @Override
     public User findById(Long id) {
-        User result = userRep.findById(id).orElseThrow(() -> new RuntimeException("User is not found"));
-        return result;
+        return userRep.findById(id).orElseThrow(() -> new RuntimeException("User is not found"));
     }
 
     @Override

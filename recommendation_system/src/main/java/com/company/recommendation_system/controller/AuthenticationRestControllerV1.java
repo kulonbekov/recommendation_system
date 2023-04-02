@@ -6,7 +6,6 @@ import com.company.recommendation_system.models.dtos.resetPassword.ResetPassword
 import com.company.recommendation_system.models.dtos.securityDto.AuthenticationRequestDto;
 import com.company.recommendation_system.models.dtos.securityDto.AuthenticationResponseDto;
 import com.company.recommendation_system.models.entities.User;
-import com.company.recommendation_system.repository.UserRep;
 import com.company.recommendation_system.security.emailValidator.EmailException;
 import com.company.recommendation_system.security.emailValidator.EmailValidator;
 import com.company.recommendation_system.security.jwt.JwtTokenProvider;
@@ -37,11 +36,10 @@ public class AuthenticationRestControllerV1 {
     private final UserService userService;
     private final EmailValidator emailValidator;
     private final PasswordValidator passwordValidator;
-    private final UserRep userRep;
 
     @ApiOperation("Авторизация")
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             String username = requestDto.getUsername();
 
@@ -63,7 +61,7 @@ public class AuthenticationRestControllerV1 {
 
     @ApiOperation("Регистрация")
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody UserDto userDto) throws EmailException, PasswordException {
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) throws EmailException, PasswordException {
         try {
             if (!emailValidator.validate(userDto.getEmail())) {
                 throw new EmailException("The email address '" + userDto.getEmail() + "' is invalid");

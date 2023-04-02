@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "tb_genre")
 public class Genre extends BaseEntity{
 
-    @Column(name = "name", unique = true)
+    @Column( unique = true)
     @NotNull
     String name;
     @JsonIgnore

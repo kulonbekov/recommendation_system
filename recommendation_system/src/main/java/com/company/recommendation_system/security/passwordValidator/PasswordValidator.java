@@ -1,15 +1,12 @@
 package com.company.recommendation_system.security.passwordValidator;
 
 import org.springframework.stereotype.Service;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class PasswordValidator {
-
-    private Pattern pattern;
-    private Matcher matcher;
+    private final Pattern pattern;
 
     // пароль длиной от 4 до 32 символов, требующий как минимум 3 из 4 (верхний регистр
     // и строчные буквы, цифры и специальные символы) и не более
@@ -26,7 +23,7 @@ public class PasswordValidator {
         pattern = Pattern.compile(COMPLEX_PASSWORD_REGEX);
     }
     public boolean validate(final String hex){
-        matcher = pattern.matcher(hex);
+        Matcher matcher = pattern.matcher(hex);
 
         return matcher.matches();
     }
