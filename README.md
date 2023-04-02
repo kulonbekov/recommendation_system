@@ -70,7 +70,30 @@ JSON формат.
 - Key: `Authorization`
 - Value: `Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrdWxvbmJla292Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2ODAzNTQ2MzAsImV4cCI6MTY4MDM5MDYzMH0.atY0oyZBlf0sizfe717nn1jtb43vApX7yvqAcSX8xMU` `Bearer_новыйтокен`.
 - После выбираем `Body` -> `form-data` и заполняем поля.
-- ![form-data-save-music](https://user-images.githubusercontent.com/16194455/229379156-e6626394-f31b-4377-8ffa-1fd83dc3227b.PNG
+![Image alt](https://github.com/kulonbekov/recommendation_system/blob/290323/recommendation_system/src/main/resources/musics/images/form-data-save-music.PNG)
+
+## Описание API запросов для поиска, фильтрации и рекомендации
+
+1. Get запрос "Живой поиск по названию товара" 
+- `http://localhost:8079/api/v1/users/find/by/name?name=Сени менен`
+
+2. Get запрос "Фильтрация по автору"
+- `http://localhost:8079/api/v1/users/find/all/by/author?author=Мирбек`
+
+3. Get запрос "Фильтрация по жанру"
+- `http://localhost:8079/api/v1/users/find/all/by/genre?genre=Классическая`
+
+4. Get запрос "Фильтрация по названию"
+- `http://localhost:8079/api/v1/users/find/all/by/name?name=Мур`
+
+5. Get запрос "Рекомендация (популярное)"
+- `http://localhost:8079/api/v1/users/find/all/by/popular`
+
+6. Get запрос "Рекомендация (новинка)"
+- `http://localhost:8079/api/v1/users/find/all/by/new`
+
+7. Get запрос "Рекомендация (по вкусу пользователя)"
+- `http://localhost:8079/api/v1/users/find/all/by/user-popular?name=adil`
 
 
 
