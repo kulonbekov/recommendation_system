@@ -74,10 +74,11 @@ public class JwtUser implements UserDetails {
         return true;
     }
 
-    public Gender getGender(){
+    public Gender getGender() {
         return gender;
     }
-    public int getAge(){
+
+    public int getAge() {
         return age;
     }
 

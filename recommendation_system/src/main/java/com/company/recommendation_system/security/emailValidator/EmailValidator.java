@@ -19,7 +19,7 @@ public class EmailValidator {
         pattern = Pattern.compile(EMAIL_PATTERN);
     }
 
-    public boolean validate(final String hex){
+    public boolean validate(final String hex) {
         matcher = pattern.matcher(hex);
 
         return matcher.matches();

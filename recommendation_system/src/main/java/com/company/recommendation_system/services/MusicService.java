@@ -1,7 +1,6 @@
 package com.company.recommendation_system.services;
 
 import com.company.recommendation_system.models.dtos.MusicDto;
-import com.company.recommendation_system.models.entities.Music;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -34,6 +33,10 @@ public interface MusicService {
     //Recommendation
     //New
     List<MusicDto> findAllByNew();
+
+    //Recommendation
+    //User-popular
+    List<MusicDto> findAllByUserPopular(String username);
 
     //Delete
     MusicDto delete(Long id);

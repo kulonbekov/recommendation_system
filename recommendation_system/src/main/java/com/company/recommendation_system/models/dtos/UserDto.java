@@ -1,5 +1,6 @@
 package com.company.recommendation_system.models.dtos;
 
+import com.company.recommendation_system.models.entities.Genre;
 import com.company.recommendation_system.models.entities.Role;
 import com.company.recommendation_system.models.enums.Gender;
 import com.company.recommendation_system.models.enums.Status;
@@ -31,5 +32,6 @@ public class UserDto {
     Gender gender;
     int age;
     List<Role> roles;
+    List<Genre> genres;
 
 }

@@ -21,11 +21,11 @@ public class AdminRestControllerV1 {
 
     @ApiOperation("Добавления треков")
     @PostMapping("/music-save")
-    public ResponseEntity musicSave(@ModelAttribute MusicDto musicDto, @RequestPart MultipartFile myImage, @RequestPart MultipartFile mySong){
-        try{
+    public ResponseEntity musicSave(@ModelAttribute MusicDto musicDto, @RequestPart MultipartFile myImage, @RequestPart MultipartFile mySong) {
+        try {
             musicService.save(musicDto, myImage, mySong);
             return ResponseEntity.ok("Content saved successfully....");
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>("Error saving content", HttpStatus.NO_CONTENT);
         }

@@ -6,9 +6,11 @@ import com.company.recommendation_system.mappers.customMapper.EmailMapper;
 import com.company.recommendation_system.models.dtos.UserDto;
 import com.company.recommendation_system.models.dtos.resetPassword.ChangePasswordDto;
 import com.company.recommendation_system.models.dtos.resetPassword.ResetPasswordDto;
+import com.company.recommendation_system.models.entities.Genre;
 import com.company.recommendation_system.models.entities.Role;
 import com.company.recommendation_system.models.entities.User;
 import com.company.recommendation_system.models.enums.Status;
+import com.company.recommendation_system.repository.GenreRep;
 import com.company.recommendation_system.repository.ResetPasswordRep;
 import com.company.recommendation_system.repository.RoleRep;
 import com.company.recommendation_system.repository.UserRep;
@@ -29,12 +31,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRep userRep;
     private final RoleRep roleRep;
+    private final GenreRep genreRep;
     private final PasswordEncoder passwordEncoder;
     private final ResetPasswordRep resetPasswordRep;
     private final EmailMapper emailMapper;
     UserMapper userMapper = UserMapper.INSTANCE;
     ResetPasswordMapper passwordMapper = ResetPasswordMapper.INSTANCE;
     private final JavaMailSender mailSender;
+
     @Override
     public UserDto register(UserDto userDto) {
 
@@ -92,10 +96,10 @@ public class UserServiceImpl implements UserService {
         String subject = "Reset password username: " + dto.getUsername() + " dataTime: " + new Date();
         String email = dto.getEmail();
 
-        try{
-            send(email,subject,textSend);
+        try {
+            send(email, subject, textSend);
             System.out.println("Message sent successfully....");
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Error sending email");
         }
     }
@@ -110,7 +114,7 @@ public class UserServiceImpl implements UserService {
         mailSender.send(message);
     }
 
-    private User toEntity(UserDto userDto){
+    private User toEntity(UserDto userDto) {
 
         Role roleUser = roleRep.findByName("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
@@ -124,6 +128,13 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRoles(userRoles);
         user.setStatus(Status.ACTIVE);
+
+        List<Genre> genres = new ArrayList<>();
+        for (Genre item : userDto.getGenres()) {
+            Genre genre = genreRep.findByName(item.getName());
+            genres.add(genre);
+        }
+        user.setGenres(genres);
 
         return user;
     }

@@ -23,4 +23,7 @@ public class Genre extends BaseEntity{
     @JsonIgnore
     @ManyToMany(mappedBy = "genres" , fetch = FetchType.LAZY)
     List<Music> musics;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "genres" , fetch = FetchType.LAZY)
+    List<User> users;
 }

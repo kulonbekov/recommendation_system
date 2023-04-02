@@ -8,7 +8,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -29,7 +28,7 @@ public class JwtTokenProvider {
     private long validityInMilliseconds;
 
     private final UserDetailsService userDetailsService;
-    //private final PasswordEncoder passwordEncoder;
+
 
     @PostConstruct
     protected void init() {
@@ -51,7 +50,8 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, secret)//
                 .compact();
     }
-    public String createResetToken(String username, List<Role> roles){
+
+    public String createResetToken(String username, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", getRoleNames(roles));
         Date now = new Date();
@@ -92,7 +92,7 @@ public class JwtTokenProvider {
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtAuthenticationException("JWT token is expired or invalid");
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new JwtAuthenticationException("JWT token is expired or invalid");
         }
     }
