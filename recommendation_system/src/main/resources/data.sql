@@ -8,7 +8,7 @@ VALUES (1, '2023-03-29 02:28:38.593', 'ACTIVE', '2023-03-29 02:28:38.593', 29, '
 
 /*Пользователь 'adil' с ролем (ROLE_USER)*/
 insert into tb_user(id,created,status,updated,age, email, gender, password, username)
-VALUES (2, '2023-03-29 02:28:38.593', 'ACTIVE', '2023-03-29 02:28:38.593', 25, 'sehami4053@djpich.com','MALE', '$2a$10$DXlADomsliqPm44E43IS0O34vSqpBD2xHIUAhf0gPnbC3vL4bTGXy', 'adil');
+VALUES (2, '2023-03-29 02:28:38.593', 'ACTIVE', '2023-03-29 02:28:38.593', 25, '1sehami4053@djpich.com','MALE', '$2a$10$DXlADomsliqPm44E43IS0O34vSqpBD2xHIUAhf0gPnbC3vL4bTGXy', 'adil');
 
 /*В промежуточной таблице добавляются роли к пользователям*/
 insert into tb_user_roles(user_id,role_id)VALUES (1,2);
