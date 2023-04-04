@@ -13,7 +13,7 @@
 1. [Spring Boot](https://spring.io/projects/spring-boot) проект использует систему сборки на основе [Maven](https://maven.apache.org/).
 2. Для работы с базами данных и для сохраниение Java-обьектов используется Spring Data Jpa, для реализации Hibernate.
 3. [Spring Security](https://spring.io/projects/spring-security) для аутентификации и контрола доступа.
-4. Для описание API и создание документации, в проекте использован [Swagger](https://swagger.io/).
+4. Для описание API и создание документации, в проекте использован [Swagger](https://swagger.io/). `http://localhost:8079/swagger-ui.html#`
 5. Для тестирование API - [Postman](https://www.postman.com/).
 
 ## Настройки и описания проекта
