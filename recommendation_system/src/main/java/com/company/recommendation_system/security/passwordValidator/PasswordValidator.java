@@ -25,6 +25,7 @@ public class PasswordValidator {
     public boolean validate(final String hex){
         Matcher matcher = pattern.matcher(hex);
 
+
         return matcher.matches();
     }
 }
